@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "strict": false
+  },
+  "files": [
+    "./src/custom.d.ts",
+    "./src/globals.d.ts"
+  ]
+}

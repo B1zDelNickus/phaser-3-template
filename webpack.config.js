@@ -3,6 +3,9 @@ var pathToPhaser = path.join(__dirname, "/node_modules/phaser/");
 var phaser = path.join(pathToPhaser, "dist/phaser.js");
 
 module.exports = {
+  node: {
+    fs: "empty"
+  },
   entry: "./src/game.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -11,6 +14,7 @@ module.exports = {
   module: {
     rules: [
       { test: /\.ts$/, loader: "ts-loader", exclude: "/node_modules/" },
+      { test: /\.ts$/, loader: "ts-loader", exclude: "/src/websocket.d.ts" },
       { test: /phaser\.js$/, loader: "expose-loader?Phaser" }
     ]
   },

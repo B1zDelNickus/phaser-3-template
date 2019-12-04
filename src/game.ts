@@ -3,25 +3,43 @@ import "phaser";
 import GameConfig = Phaser.Types.Core.GameConfig;
 import Game = Phaser.Game;
 
-import {BootView} from "./views/BootView";
+import {BootView} from "./views/boot.view";
+import { Plugin as NineSlicePlugin } from "phaser3-nineslice"
+import {PreloadView} from "./views/preload.view";
+import {MainView} from "./views/main.view";
+import {BattleView} from "./views/battle.view";
 
 const config : GameConfig = {
-    title: "Tank",
-    url: "https://github.com/digitsensitive/phaser3-typescript",
+    title: "Test RPG Game",
     version: "1.0",
-    width: 800,
-    height: 475,
+    width: 480,
+    height: 775,
     zoom: 1.0,
     parent: "game",
-    scene: [BootView],
+    scene: [BootView,PreloadView,MainView,BattleView],
     type: Phaser.AUTO,
+    plugins: {
+        global: [ NineSlicePlugin.DefaultCfg ],
+    },
+    dom: {
+        createContainer: true
+    },
     backgroundColor: "#000000"
 }
 
 export class App extends Game {
 
-    constructor(config: GameConfig) {
+    private constructor() {
         super(config);
+    }
+
+    private static instance: App = null;
+
+    static getInstance() : App {
+        if (null == this.instance) {
+            this.instance = new App();
+        }
+        return this.instance;
     }
 
     preload() {
@@ -30,4 +48,6 @@ export class App extends Game {
 
 }
 
-window.onload = () => { const app = new App(config); };
+
+
+window.onload = () => { const app = App.getInstance(); };
